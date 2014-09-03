@@ -6,7 +6,7 @@ name := "sbt-inbase"
 
 description := "sbt plugin to placy inbase sources inside a folder to make it compatible with various tools"
 
-version := "0.1-SNAPSHOT"
+version := "0.2"
 
 startYear := Some(2014)
 
