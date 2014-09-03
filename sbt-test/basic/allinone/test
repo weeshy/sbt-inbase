@@ -1,0 +1,49 @@
+# test inbase plugin step by step
+
+# safe defaults
+-> requireSourcesInBase
+-> requireProjectInBase
+-> requireCompileInBase
+-> requireTestInBase
+
+# compile no files
+> compile
+# .inbase directory should not be spanned on compilation
+$ absent .inbase
+
+# enable only basic proxy, so all sources would be treated as resources
+> set inBase := true
+> linkedFiles
+$ exists .inbase
+$ absent .inbase/main
+
+# disable basic proxy again, try to clean proxy folder
+> set inBase := false
+> inBaseSanitize
+$ absent .inbase
+
+# revert inBase rule back
+> set inBase := (inBase in Compile).value || (inBase in Test).value
+
+# enable compile sources in base
+> set (inBase in Compile) := true
+> compile
+> requireCompileProxy
+-> requireTestProxy
+$ exists .inbase/main/A.scala .inbase/main/BTest.scala
+
+# enable test sources in base
+> set (inBase in Test) := true
+> compile:inBaseSanitize
+$ absent .inbase/main/BTest.scala
+> test:compile
+$ exists .inbase/test/BTest.scala
+> requireFindCompile
+> requireTestProxy
+> requireFindCompile
+> requireFindTest
+
+# sourcesInBase conflicts and shutdowns inBase
+> set (sourcesInBase := true)
+> inBaseSanitize
+$ absent .inbase
