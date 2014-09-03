@@ -1,0 +1,45 @@
+sbt-inbase
+==========
+
+The http://www.scala-sbt.org[sbt] plugin that creates hidden directory that contains symbolic links to scala files found in the base directory. It duplicates core sbt functionality to provide more compatibility with external tools.
+
+== Why not just core +sourcesInBase+
+
+There are plenty of external tools like IDEs and debuggers in scala world that works only with folders and could not be configured in terms of single source files. They providers no support to the sbt +sourcesInBase+ feature. So if you still want to use it you should bypass this restriction somehow. This plugins provider very rough awkward solution. It's better than nothing.
+
+== How to activate plugin
+
+==== Install plugin
+
+Plugin is not published to maven. So you should clone the repository and run `sbt publishLocal` inside.
+
+==== Activate plugin
+
+.'project/plugin.sbt'
+[source,scala]
+-----
+addSbtPlugin(addSbtPlugin("weeshy" % "sbt-inbase" % "0.2")
+-----
+
+.'build.sbt'
+[source,scala]
+-----
+inBase in Compile := true
+inBase in Test := true
+-----
+
+== Delete unused files
+
+If you delete a file from the base directory, you will broke to link to it from the '.inbase' directory. This links are not deleted automatically, if you would like to clean all broken links, call task `inBaseSanitize` from the sbt console explicitly.
+
+== More options
+
+call help inside sbt to read settings description
+
+`help inBaseSuffix`
+
+`help inBasePattern`
+
+`help inBaseProxyDir`
+
+`help inBaseSanitize`
