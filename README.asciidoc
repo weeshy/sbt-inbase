@@ -18,7 +18,7 @@ Plugin is not published to maven. So you should clone the repository and run `sb
 .'project/plugin.sbt'
 [source,scala]
 -----
-addSbtPlugin(addSbtPlugin("weeshy" % "sbt-inbase" % "0.2")
+addSbtPlugin(addSbtPlugin("weeshy" % "sbt-inbase" % "0.2"))
 -----
 
 .'build.sbt'
@@ -30,7 +30,7 @@ inBase in Test := true
 
 == Delete unused files
 
-If you delete a file from the base directory, you will broke to link to it from the '.inbase' directory. This links are not deleted automatically, if you would like to clean all broken links, call task `inBaseSanitize` from the sbt console explicitly.
+If you delete a file from the base directory, you will broke link to the file from the '.inbase' directory. This links are not deleted automatically, if you would like to clean all broken links, call task `inBaseSanitize` from the sbt console explicitly.
 
 == More options
 
