@@ -18,7 +18,7 @@ Plugin is not published to maven. So you should clone the repository and run `sb
 .'project/plugin.sbt'
 [source,scala]
 -----
-addSbtPlugin(addSbtPlugin("weeshy" % "sbt-inbase" % "0.2"))
+addSbtPlugin("weeshy" % "sbt-inbase" % "0.2")
 -----
 
 .'build.sbt'
